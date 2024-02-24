@@ -41,5 +41,5 @@ class FileStorage:
                     class_name, obj_id = key.split('.')
 
                     cls = globals()[class_name]
-                    obj_instance = clas(**value)
+                    obj_instance = cls(**value)
                     self.__objects[key] = obj_instance
