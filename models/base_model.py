@@ -28,3 +28,16 @@ class BaseModel:
 
     def to_dict(self):
         '''Returns a dictionary containig all key/values of __dict__'''
+        
+        instance_dict = self.__dict__.copy() # creates a copy of the instance's '__dict__' attribute
+        '''Contains all instance attributes and their values'''
+
+        instance_dict['__class__'] = self.__class__.__name__ # adding key '__class__'
+        '''Requirement for serialization to identify the class type
+            during deserialization
+        '''
+
+        instance_dict['created_at'] = self.created_at.isoformat() # Converts the attributes to ISO format
+        instance_dict['updated_at'] = self.updated_at.isoformat()
+
+        return instance_dict
