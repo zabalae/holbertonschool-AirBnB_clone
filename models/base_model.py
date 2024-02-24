@@ -10,11 +10,37 @@ class BaseModel:
     '''Class that defines all common attributes/methods
         for other classes
     '''
-    def __init__(self):
-        '''Initialize BaseModel instance'''
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+    def __init__(self, *args, **kwargs):
+        '''Initialize BaseModel instance
+
+        Args:
+            *args: Unused positional arguments
+            **kwargs: Keyword arguments used for instantiation
+                If kwargs is not empty:
+                    Each key of this dictionary is an attribute name.
+                    Each value of this dictionary is the value of the correspondig attribute.
+                    Warning: 'created_at' and 'updated_at' are strings in kwargs,
+                             but inside the BaseModel instance, they are datetime objects.
+                             They are converted from strings to datetime objects during instantiation.
+                Otherwise:
+                    Creates 'id', 'created_at', and 'updated_at' as new instance attributes.
+
+        Note:
+            This constructor allows recreating an instance from a dictionary representation.
+        '''
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == '__class__':
+                    continue
+                elif key == 'created_at' or key == 'updated_at':
+                    setattr(self, key, datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
+                else:
+                    setattr(self, key, value)
+
+        else:    
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         '''Return a string representation of the object'''
