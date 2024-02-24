@@ -5,7 +5,6 @@
 
 import json
 from os.path import isfile
-from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -41,7 +40,6 @@ class FileStorage:
                 for key, value in loaded_obj.items():
                     class_name, obj_id = key.split('.')
 
-                    class_mapping = {'BaseModel': BaseModel}
-                    cls = class_mapping[class_name]
-                    obj_instance = cls(**value)
+                    cls = globals()[class_name]
+                    obj_instance = clas(**value)
                     self.__objects[key] = obj_instance
