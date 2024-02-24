@@ -28,12 +28,12 @@ class BaseModel:
         Note:
             This constructor allows recreating an instance from a dictionary representation.
         '''
-        if kwargs:
-            for key, value in kwargs.items():
+        if kwargs: # Checks if the 'kwargs' dictionary is empty
+            for key, value in kwargs.items(): # Iterates over the key-value pairs in the 'kwargs' dictionary
                 if key == '__class__':
-                    continue
+                    continue        # If key == '__class__', we skip it because it should not be added as an attribute
                 elif key == 'created_at' or key == 'updated_at':
-                    setattr(self, key, datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
+                    setattr(self, key, datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")) # Converts the str into datetime objects
                 else:
                     setattr(self, key, value)
 
