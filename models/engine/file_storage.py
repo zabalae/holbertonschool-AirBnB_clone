@@ -11,8 +11,8 @@ class FileStorage:
     '''Serializes instances to a JSON file and deserializes
         JSON file to instances
     '''
-    __file_path = "file.json"
-    __objects = {}
+    __file_path = "file.json" # path to the JSON file
+    __objects = {} # dictionary
 
     def all(self):
         '''Will return the dictionary "__objects" '''
@@ -25,11 +25,14 @@ class FileStorage:
 
     def save(self):
         '''Serializes "__objects" to the JSON file (path: __file_path)'''
-        serialized_obj = {}
-        for obj in self.__objects.values():
+        
+        serialized_obj = {} # Creates empty dictionary
+        
+        for key in self.__objects: # Fills dictionary with elements from '__objects'
             key = "{}.{}".format(obj.__class__.__name__, obj.id)
-            serialized_obj[key] = obj.to_dict()
-        with open(self.__file_path, 'w', encoding='utf-8') as file:
+            serialized_obj[key] = self.__objects[key].to_dict()
+        
+        with open(self.__file_path, 'w') as file:
             json.dump(serialized_obj, file)
 
     def reload(self):
