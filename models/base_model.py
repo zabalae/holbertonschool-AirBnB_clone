@@ -4,6 +4,7 @@ other classes'''
 
 import uuid
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
@@ -24,6 +25,7 @@ class BaseModel:
                              They are converted from strings to datetime objects during instantiation.
                 Otherwise:
                     Creates 'id', 'created_at', and 'updated_at' as new instance attributes.
+                    If it's a new instance, it will call to the method new(self) on storage.
 
         Note:
             This constructor allows recreating an instance from a dictionary representation.
@@ -41,6 +43,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            storage.new()
 
     def __str__(self):
         '''Return a string representation of the object'''
@@ -51,6 +54,7 @@ class BaseModel:
         '''Updates the public instance attribute updated_at with the
         current datetime'''
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         '''Returns a dictionary containig all key/values of __dict__'''
