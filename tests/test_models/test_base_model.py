@@ -39,5 +39,17 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(obj_dict['created_at'], obj.created_at.isoformat())
         self.assertEqual(obj_dict['updated_at'], obj.updated_at.isoformat())
 
+    def test_save_and_reload(self):
+        '''Tests save and reload'''
+        obj1 = BaseModel()
+        obj1.save()
+
+        obj2 = BaseModel()
+        obj2.reload()
+
+        self.assertEqual(obj1.id, obj2.id)
+        self.assertEqual(obj1.created_at, obj2.created_at)
+        self.assertEqual(obj1.updated_at, obj2.updated_at)
+
 if __name__ == '__main__':
     unittest.main()
