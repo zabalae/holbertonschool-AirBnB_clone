@@ -28,11 +28,10 @@ class FileStorage:
         
         serialized_obj = {} # Creates empty dictionary
         
-        for key in self.__objects: # Fills dictionary with elements from '__objects'
-            key = "{}.{}".format(obj.__class__.__name__, obj.id)
-            serialized_obj[key] = self.__objects[key].to_dict()
+        for key, obj in self.__objects.items(): # Fills dictionary with elements from '__objects'
+            serialized_obj[key] = obj.to_dict()
         
-        with open(self.__file_path, 'w') as file:
+        with open(self.__file_path, 'w', encoding='utf-8') as file:
             json.dump(serialized_obj, file)
 
     def reload(self):
