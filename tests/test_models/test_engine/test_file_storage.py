@@ -3,6 +3,7 @@
 
 import unittest
 from models.engine.file_storage import FileStorage
+from models.base_model import BaseModel
 
 
 class TestFileStorage:
@@ -16,22 +17,22 @@ class TestFileStorage:
         '''This method will be called after each test'''
         pass
 
-    # def test_new_and_all(self):
-    #     '''Tests if new() correctly adds an object to __objects
-    #         and all() returns the expected dictionary
-    #     '''
-    #     obj1 = __objects(id=1, name='example1')
-    #     obj2 = __objects(id=2, name='example2')
+    def test_new_and_all(self):
+        '''Tests if new() correctly adds an object to __objects
+            and all() returns the expected dictionary
+        '''
+        obj1 = FileStorage.__objects(id=1, name='example1')
+        obj2 = FileStorage.__objects(id=2, name='example2')
 
-    #     self.file_storage.new(obj1)
-    #     self.file_storage.new(obj2)
-    #     self.file_storage.save()
+        self.file_storage.new(obj1)
+        self.file_storage.new(obj2)
+        self.file_storage.save()
 
-    #     new_file_storage = FileStorage()
-    #     new_file_storage.reload()
+        new_file_storage = FileStorage()
+        new_file_storage.reload()
 
-    #     self.assertEqual(new_file_storage.all(),
-    #             {'__objects.1': obj1, '__objects.2': obj2})
+        self.assertEqual(new_file_storage.all(),
+                {'__objects.1': obj1, '__objects.2': obj2})
 
     def test_save_empty(self):
         '''Tests if save() works correctly when __objects is empty'''
