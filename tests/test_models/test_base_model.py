@@ -39,5 +39,5 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(obj_dict['created_at'], obj.created_at.isoformat())
         self.assertEqual(obj_dict['updated_at'], obj.updated_at.isoformat())
 
-    __name__ == '__main__':
-        unittest.main()
+if __name__ == '__main__':
+    unittest.main()
