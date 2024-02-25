@@ -20,5 +20,9 @@ class HBNBCommand(cmd.Cmd):
         '''Will show help'''
         super().do_help(arg)
 
+    def emptyline(self):
+        '''Do nothing when input is empty line'''
+        pass
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
