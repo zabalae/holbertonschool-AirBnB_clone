@@ -3,6 +3,7 @@
 
 import unittest
 from models.engine.file_storage import FileStorage
+from models.base_model import BaseModel
 
 
 class TestFileStorage:
@@ -20,8 +21,8 @@ class TestFileStorage:
         '''Tests if new() correctly adds an object to __objects
             and all() returns the expected dictionary
         '''
-        obj1 = __objects(id=1, name='example1')
-        obj2 = __objects(id=2, name='example2')
+        obj1 = FileStorage.__objects(id=1, name='example1')
+        obj2 = FileStorage.__objects(id=2, name='example2')
 
         self.file_storage.new(obj1)
         self.file_storage.new(obj2)
@@ -53,6 +54,14 @@ class TestFileStorage:
 
         self.file_storage.reload()
         self.assertEqual(self.file_storage.all(), {})
+
+    def test_reload(self):
+        new = BaseModel()
+        FileStorage.save()
+        FileStorage.reload()
+        for obj in FileStorage.all().values():
+            loaded = obj
+        self.assertEqual(new.to_dict()['id'], loaded.to_dict()['id'])
 
 if __name__ == '__main__':
     unittest.main()
