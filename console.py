@@ -13,6 +13,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -24,12 +25,12 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, arg):
         '''Will exit the program'''
-        return True
+        exit()
 
     def do_EOF(self, arg):
         '''Will exit the program'''
-        print("")
-        return True
+        print()
+        exit()
 
     def do_help(self, arg):
         '''Will show help'''
@@ -43,15 +44,16 @@ class HBNBCommand(cmd.Cmd):
         '''Creates a new instance of BaseModel, saves it
             (to the JSON file), and prints the id
         '''
-        args = shlex.split(arg)
-        if len(args) == 0:
+        if not arg:
             print("** class name missing **")
-        elif args[0] not in self.classes:
+            return
+        elif arg not in HBNBCommand.classes:
             print("** class doesn't exist **")
-        else:
-            new_instance = self.classes[args[0]]()
-            new_instance.save()
-            print(new_instance.id)
+            return
+        new_instance = HBNBCommand.classes[arg]()
+        storage.save()
+        print(new_instance.id)
+        storage.save()
 
     def do_show(self, arg):
         '''Prints the string representation of an instance based on
