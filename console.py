@@ -80,10 +80,13 @@ class HBNBCommand(cmd.Cmd):
         args = shlex.split(arg)
         if len(args) == 0:
             print("** class name missing **")
+            return
         elif args[0] not in self.classes:
             print("** class doesn't exist **")
+            return
         elif len(args) == 1:
             print("** instance id missing **")
+            return
         else:
             key = args[0] + "." + args[1]
             if key in BaseModel.__objects:
