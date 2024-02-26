@@ -21,10 +21,12 @@ class BaseModel:
                     Each key of this dictionary is an attribute name.
                     Each value of this dictionary is the value of the
                     correspondig attribute.
-                    Warning: 'created_at' and 'updated_at' are strings in kwargs,
-                             but inside the BaseModel instance, they are datetime objects.
-                             They are converted from strings to datetime objects during
-                             instantiation.
+                    Warning: 'created_at' and 'updated_at' are strings
+                    in kwargs,
+                    but inside the BaseModel instance, they are
+                    datetime objects.
+                    They are converted from strings to datetime objects during
+                    instantiation.
                 Otherwise:
                     Creates 'id', 'created_at', and 'updated_at' as new instance attributes.
                     If it's a new instance, it will call to the method new(self) on storage.
@@ -41,7 +43,7 @@ class BaseModel:
                 else:
                     setattr(self, key, value)
 
-        else:    
+        else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
