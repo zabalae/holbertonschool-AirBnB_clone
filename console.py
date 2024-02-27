@@ -78,22 +78,18 @@ class HBNBCommand(cmd.Cmd):
             change into the JSON file)
         '''
         args = shlex.split(arg)
-        if len(args) == 0:
+        if not args:
             print("** class name missing **")
-            return
         elif args[0] not in self.classes:
             print("** class doesn't exist **")
-            return
-        elif len(args) == 1:
+        elif len(args) < 2:
             print("** instance id missing **")
-            return
+        elif '{}.{}'.format(args[0], args[1]) not in storage.all():
+            print("** no instance found **")
         else:
-            key = args[0] + "." + args[1]
-            if key in BaseModel.__objects:
-                del BaseModel.__objects[key]
-                BaseModel.save_to_file()
-            else:
-                print("** no instance found **")
+            key = '{}.{}'.format(args[0], args[1])
+            del storage.all()[key]
+            storage.save()
 
     def do_all(self, arg):
         '''Prints all str representation of all instances based or not
