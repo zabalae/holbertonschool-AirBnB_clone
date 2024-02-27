@@ -100,18 +100,16 @@ class HBNBCommand(cmd.Cmd):
             on the class name
         '''
         args = shlex.split(arg)
-        instances = []
-        if len(args) == 0:
-            for obj in BaseModel.__objects.values():
-                instances.append(str(obj))
-        elif args[0] not in self.classes:
-            print("** class doesn't exits **")
+        dict_t = storage.all()
+
+        if not args:
+            print([str(value) for value in dict_t.values()])
             return
-        else:
-            for key, obj in BaseModel.__objects.items():
-                if args[0] == key.split(".")[0]:
-                    instances.append(str(obj))
-        print(instances)
+        if args[0] in self.classes:
+            print([str(value) for key, value in dict_t.items()
+                   if key.split(".")[0] == args[0]])
+            return
+        print("** class doesn't exist **")
 
     def do_update(self, arg):
         '''Updates an instance based on the class name and id by adding
