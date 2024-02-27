@@ -115,27 +115,37 @@ class HBNBCommand(cmd.Cmd):
         '''Updates an instance based on the class name and id by adding
             or updating attribute
         '''
-        args = shlex.split(arg)
-        if len(args) == 0:
+        if not arg:
             print("** class name missing **")
-        elif args[0] not in self.classes:
+            return
+        args = shlex.split(arg)
+        storage.reload()
+        dict_objs = storage.all()
+        if args[0] not in self.classes:
             print("** class doesn't exist **")
-        elif len(args) == 1:
+            return
+        if len(args) == 1:
             print("** instance id missing **")
-        else:
+            return
+        try:
             key = args[0] + "." + args[1]
-            if key not in BaseModel.__objects:
-                print("** no instance found **")
-            elif len(args) == 2:
-                print("** attribute name missing **")
-            elif len(args) == 3:
-                print("** value missing **")
-            else:
-                obj = BaseModel.__objects[key]
-                attribute_name = args[2]
-                attribute_value = args[3]
-                setattr(obj, attribute_name, attribute_value)
-                obj.save()
+            dict_objs[key]
+        except KeyError:
+            print("** no instance found **")
+            return
+        if len(args) == 2:
+            print("** attribute name missing **")
+            return
+        if len(args) == 3:
+            print("** value missing **")
+            return
+        obj = dict_objs[key]
+        if hasattr(obj, args[2]):
+            data_type = type(getattr(obj, args[2]))
+            setattr(obj, args[2], data_type(args[3]))
+        else:
+            setattr(obj, args[2], args[3])
+        storage.save()
 
     def precmd(self, line):
         '''Will execute before each command'''
