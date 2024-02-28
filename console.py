@@ -102,8 +102,8 @@ class HBNBCommand(cmd.Cmd):
             print([str(value) for value in dict_t.values()])
             return
         if args[0] in self.classes:
-            print([str(value) for key, value in dict_t.items()
-                   if key.split(".")[0] == args[0]])
+            all_instances = self.classes[args[0]].all()
+            print([str(instance) for instance in all_instances])
             return
         print("** class doesn't exist **")
 
