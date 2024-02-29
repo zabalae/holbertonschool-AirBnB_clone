@@ -69,7 +69,8 @@ class TestFileStorage(unittest.TestCase):
          self.assertNotEqual(os.path.getsize(storage._FileStorage__file_path), 0)
 
          storage.reload()
-         loaded_instance = storage.all().values()
+         loaded_instance = list(storage.all().values())[0]
+         self.assertIn('new_key', loaded_instance.to_dict())
          self.assertEqual(loaded_instance.to_dict()['new_key'], 'new_value')
 
     def testTypePath(self):
