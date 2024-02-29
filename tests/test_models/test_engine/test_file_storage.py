@@ -60,18 +60,20 @@ class TestFileStorage(unittest.TestCase):
     def test_save_and_reload_non_empty_objects(self):
          '''Tests if save() and reload() work with non-empty objects'''
          original_instance = BaseModel()
-         instance_dict = original_instance.to_dict()
          original_instance.save()
 
-         instance_dict['new_key'] = 'new_value'
+         instance_id = original_instance.id
 
-         restored_instance = BaseModel(**instance_dict)
-         self.assertNotEqual(os.path.getsize(storage._FileStorage__file_path), 0)
+         original_instance.new_key = 'new_value'
+         original_instance.save()
+
+         restored_instance = BaseModel(id=instance_id)
 
          storage.reload()
-         loaded_instance = list(storage.all().values())[0]
+
+         loaded_instance = storage.all()[f"BaseModel.{instance_id}"]
          self.assertIn('new_key', loaded_instance.to_dict())
-         self.assertEqual(loaded_instance.to_dict()['new_key'], 'new_value')
+         self.assertEqual(loaded_instance.new_key, 'new_value')
 
     def testTypePath(self):
         self.assertEqual(type(storage.all()), dict)
