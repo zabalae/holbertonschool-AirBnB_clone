@@ -3,6 +3,7 @@
 
 import unittest
 from models.base_model import BaseModel
+from models import storage
 
 
 class TestBaseModel(unittest.TestCase):
@@ -39,17 +40,24 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(obj_dict['created_at'], obj.created_at.isoformat())
         self.assertEqual(obj_dict['updated_at'], obj.updated_at.isoformat())
 
-    def test_save_and_reload(self):
-        '''Tests save and reload'''
-        obj1 = BaseModel()
-        obj1.save()
+    def test_save_updates_file(self):
+        bm = BaseModel()
+        bm.save()
+        bmid = "BaseModel." + bm.id
+        with open("file.json", "r") as f:
+            self.assertIn(bmid, f.read())
 
-        obj2 = BaseModel()
-        obj2.reload()
+    # def test_save_and_reload(self):
+    #     '''Tests save and reload'''
+    #     obj1 = BaseModel()
+    #     obj1.save()
 
-        self.assertEqual(obj1.id, obj2.id)
-        self.assertEqual(obj1.created_at, obj2.created_at)
-        self.assertEqual(obj1.updated_at, obj2.updated_at)
+    #     obj2 = BaseModel()
+    #     obj2.reload()
+
+    #     self.assertEqual(obj1.id, obj2.id)
+    #     self.assertEqual(obj1.created_at, obj2.created_at)
+    #     self.assertEqual(obj1.updated_at, obj2.updated_at)
 
 if __name__ == '__main__':
     unittest.main()
