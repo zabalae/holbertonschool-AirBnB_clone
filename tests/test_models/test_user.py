@@ -34,19 +34,19 @@ class TestUserClass(unittest.TestCase):
         '''Test User first name'''
         u1 = User()
         u1.first_name = "Liz"
-        self.assertEqual(u1.first_name, "Liz")
+        self.assertEqual(self.u1.first_name, "Liz")
 
     def test_user_lastname(self):
         ''''Test User last name'''
         u1 = User()
         u1.last_name = "Zabala"
-        self.assertEqual(u1.last_name, "Zabala")
+        self.assertEqual(self.u1.last_name, "Zabala")
 
     def test_user_email(self):
         '''Test User email'''
         u1 = User()
         u1.email = "Liz@example.com"
-        self.assertEqual(u1.email, "Liz@example.com")
+        self.assertEqual(self.u1.email, "Liz@example.com")
 
     # def test_string_representation(self):
     #     '''Tests the __str__ method to ensure it returns
