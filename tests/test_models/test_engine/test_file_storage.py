@@ -7,6 +7,13 @@ from models.base_model import BaseModel
 import os
 from models import storage
 
+
+class SampleClass:
+    '''Sample Class for testing'''
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+
 class TestFileStorage(unittest.TestCase):
     '''Class with test cases for FileStorage'''
     def setUp(self) -> None:
@@ -35,11 +42,35 @@ class TestFileStorage(unittest.TestCase):
         '''Tests if save() works correctly when __objects is empty'''
         storage.save()
 
-    def test_reload_nonexistent_file(self):
+    def test_reload_empty_file(self):
+        '''Tests if reload() handles the case where
+            the JSON file is empty
+        '''
+        storage.reload()
+
+    def test_reload_non_existent_file(self):
         '''Tests if reload() handles the case where the JSON
             file doesn't exist
         '''
-        self.assertEqual(storage.reload(), None)
+        file_path = storage._FileStorage__file_path
+        storage._FileStorage__file_path = "non_existent_file.json"
+        storage.reload()
+        storage._FileStorage__file_path = file_path
+
+    def test_save_and_reload_non_empty_objects(self):
+        '''Tests if save() and reload() work with non-empty objects'''
+        original_instance = BaseModel()
+        instance_dict = original_instance.to_dict()
+        original_instance.save()
+
+        instance_dict['new_key'] = 'new_value'
+
+        restored_instance = BaseModel(**instance_dict)
+        self.assertNotEqual(os.path.getsize(storage._FileStorage__file_path), 0)
+
+        storage.reload()
+        loaded_instance = storage.all().values()
+        self.assertEqual(loaded_instance.to_dict()['new_key'], 'new_value')
 
     def testTypePath(self):
         self.assertEqual(type(storage.all()), dict)
