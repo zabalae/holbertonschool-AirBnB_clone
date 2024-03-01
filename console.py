@@ -170,6 +170,23 @@ class HBNBCommand(cmd.Cmd):
         arg = arg.replace(')', ' ')
         line = cmd + ' ' + arg
         return line
+    
+    def default(self, args):
+        """deafult function"""
+        functs = {"all": self.do_all,
+                  "update": self.do_update,
+                  "show": self.do_show,
+                  "count": self.do_count,
+                  "destroy": self.do_destroy}
+        args = (args.replace("(", ".").replace(")", ".")
+                    .replace('"', "").replace(",", "").split("."))
+
+        try:
+            commands = args[0] + " " + args[2]
+            func = functs[args[1]]
+            func(commands)
+        except:
+            print("*** Unknown syntax:", args[0])
 
     # def postcmd(self, stop, line):
     #     '''Will execute after each command'''
