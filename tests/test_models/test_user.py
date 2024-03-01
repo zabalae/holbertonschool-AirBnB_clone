@@ -50,8 +50,8 @@ class TestUserClass(unittest.TestCase):
 
 
     def test_user_email(self):
-        user1 = User(email="user1@example.com")
-        self.assertEqual(user1.email, "user1@example.com")
+        u1 = self.user1.email
+        self.assertEqual(u1, "user1@example.com")
 
 if __name__ == '__main__':
     unittest.main()
