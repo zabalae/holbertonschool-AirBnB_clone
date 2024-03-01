@@ -101,7 +101,13 @@ class HBNBCommand(cmd.Cmd):
         
         result = []
         if arg:
-            result = [str(obj) for obj in eval(arg).all()]
+            instances = eval(arg).all()
+            result = [str(obj) for obj in instances]
+
+            if len(instances) > 0 and hasattr(instances[0], 'id'):
+                new_ids = [obj.id for obj in instances if obj.id not in result]
+                if new_ids:
+                    print(new_ids)
         else:
             for key, value in storage.all().items():
                 result.append(str(value))
