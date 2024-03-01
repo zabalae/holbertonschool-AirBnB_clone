@@ -96,16 +96,15 @@ class HBNBCommand(cmd.Cmd):
             on the class name
         '''
         args = shlex.split(arg)
-        dict_t = storage.all()
 
         if not args:
-            print([str(value) for value in dict_t.values()])
-            return
-        if args[0] in self.classes:
-            instances = self.classes[args[0]].all()
+            print("** class name missing **")
+        elif args[0] not in self.classes:
+            print("** class doesn't exist **")
+        else:
+            class_name = args[0]
+            instances = storage.get_all(self.classes[class_name])
             print([str(instance) for instance in instances])
-            return
-        print("** class doesn't exist **")
 
     def do_update(self, arg):
         '''Updates an instance based on the class name and id by adding
@@ -142,6 +141,19 @@ class HBNBCommand(cmd.Cmd):
         else:
             setattr(obj, args[2], args[3])
         storage.save()
+
+    def do_count(self, arg):
+        '''Retrieves the number of instances of a class'''
+        args = shlex.split(arg)
+        if not args:
+            print("** class name missing **")
+        elif args[0] not in self.classes:
+            print("** class doesn't exist **")
+        else:
+            class_name = args[0]
+            instances = storage.get_all(self.classes[class_name])
+            count = len(instances)
+            print(count)
 
     def precmd(self, line):
         '''Will execute before each command'''
