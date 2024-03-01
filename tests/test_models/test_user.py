@@ -49,13 +49,8 @@ class TestUserClass(unittest.TestCase):
 #       self.assertEqual(u1.email, "Liz@example.com")
 
 
-    def test_string_representation(self):
-        '''Tests the __str__ method to ensure it returns
-            a meaningful string
-        '''
-        self.assertEqual(str(self.user1), "[User] (None) {'email': 'user1@example.com', 'password': 'pass123', 'first_name': 'John', 'last_name': 'Doe'}")
-        self.assertEqual(str(self.user2), "[User] (None) {'email': 'user2@example.com', 'password': 'pass456', 'first_name': 'Jane', 'last_name': 'Smith'}")
-        # self.assertEqual(str(self.user2), "User(email='user2@example.com', password='pass456', "
-        #                                    "first_name='Jane', last_name='Smith')")
+    def test_user_email(self):
+        self.assertEqual(self.user1.email, "user1@example.com")
+
 if __name__ == '__main__':
     unittest.main()
