@@ -52,8 +52,8 @@ class TestUserClass(unittest.TestCase):
         '''Tests the __str__ method to ensure it returns
             a meaningful string
         '''
-        #user1 = User()
-        self.assertIn("user1@example.com", self.user1.email.__str__())
+        us1email = self.user1.email
+        self.assertIn("user1@example.com", us1email.__str__())
         # self.assertEqual(str(self.user1), "User(email='user1@example.com', password='pass123', "
         #                                    "first_name='John', last_name='Doe')")
         # self.assertEqual(str(self.user2), "User(email='user2@example.com', password='pass456', "
