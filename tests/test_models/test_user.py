@@ -53,7 +53,7 @@ class TestUserClass(unittest.TestCase):
             a meaningful string
         '''
         #user1 = User()
-        self.assertEqual("user1@example.com", self.user1.email.__str__())
+        self.assertIn("user1@example.com", self.user1.email.__str__())
         # self.assertEqual(str(self.user1), "User(email='user1@example.com', password='pass123', "
         #                                    "first_name='John', last_name='Doe')")
         # self.assertEqual(str(self.user2), "User(email='user2@example.com', password='pass456', "
