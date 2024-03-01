@@ -6,6 +6,12 @@ import unittest
 from models.base_model import BaseModel
 import os
 from models import storage
+from models.user import User
+from models.amenity import Amenity
+from models.city import City
+from models.review import Review
+from models.state import State
+from models.place import Place
 
 
 class SampleClass(unittest.TestCase):
@@ -77,6 +83,36 @@ class TestFileStorage(unittest.TestCase):
 
     def testTypePath(self):
         self.assertEqual(type(storage.all()), dict)
+
+    def test_reload_with_arg(self):
+        with self.assertRaises(TypeError):
+            storage.reload(None)
+
+    def test_reload(self):
+        bm = BaseModel()
+        user = User()
+        state = State()
+        place = Place()
+        city = City()
+        amenity = Amenity()
+        review = Review()
+        storage.new(bm)
+        storage.new(user)
+        storage.new(state)
+        storage.new(place)
+        storage.new(city)
+        storage.new(amenity)
+        storage.new(review)
+        storage.save()
+        storage.reload()
+        objs = storage._FileStorage__objects
+        self.assertIn("BaseModel." + bm.id, objs)
+        self.assertIn("User." + user.id, objs)
+        self.assertIn("State." + state.id, objs)
+        self.assertIn("Place." + place.id, objs)
+        self.assertIn("City." + city.id, objs)
+        self.assertIn("Amenity." + amenity.id, objs)
+        self.assertIn("Review." + review.id, objs)
 
 if __name__ == '__main__':
     unittest.main()

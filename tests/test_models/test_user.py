@@ -48,6 +48,7 @@ class TestUserClass(unittest.TestCase):
 #       u1.email = "Liz@example.com"
 #       self.assertEqual(u1.email, "Liz@example.com")
 
+
     def test_string_representation(self):
         '''Tests the __str__ method to ensure it returns
             a meaningful string
