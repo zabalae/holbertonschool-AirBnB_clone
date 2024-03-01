@@ -95,34 +95,17 @@ class HBNBCommand(cmd.Cmd):
         '''Prints all str representation of all instances based or not
             on the class name
         '''
-        if arg and arg not in storage.classes():
-            print("** class doesn't exist **")
+        args = shlex.split(arg)
+        dict_t = storage.all()
+
+        if not args:
+            print([str(value) for value in dict_t.values()])
             return
-        
-        result = []
-        if arg:
-            instances = eval(arg).all()
-            result = [str(obj) for obj in instances]
-
-            if len(instances) > 0 and hasattr(instances[0], 'id'):
-                new_ids = [obj.id for obj in instances if obj.id not in result]
-                if new_ids:
-                    print(new_ids)
-        else:
-            for key, value in storage.all().items():
-                result.append(str(value))
-        print(result)
-        #args = shlex.split(arg)
-        #dict_t = storage.all()
-
-        #if not args:
-        #    print([str(value) for value in dict_t.values()])
-        #    return
-        #if args[0] in self.classes:
-        #    print([str(value) for key, value in dict_t.items()
-        #           if key.split(".")[0] == args[0]])
-        #    return
-        #print("** class doesn't exist **")
+        if args[0] in self.classes:
+            instances = self.classes[args[0]].all()
+            print([str(instance) for instance in instances])
+            return
+        print("** class doesn't exist **")
 
     def do_update(self, arg):
         '''Updates an instance based on the class name and id by adding
