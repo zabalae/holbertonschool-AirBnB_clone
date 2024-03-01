@@ -56,7 +56,7 @@ class BaseModel:
     def __str__(self):
         '''Return a string representation of the object'''
         return "[{}] ({}) {}".format(self.__class__.__name__,
-                                     self.id, self.__dict__)
+                                getattr(self, 'id', None), self.__dict__)
 
     def save(self):
         '''Updates the public instance attribute updated_at with the
