@@ -78,5 +78,9 @@ class TestFileStorage(unittest.TestCase):
     def testTypePath(self):
         self.assertEqual(type(storage.all()), dict)
 
+    def test_reload_with_arg(self):
+        with self.assertRaises(TypeError):
+            storage.reload(None)
+
 if __name__ == '__main__':
     unittest.main()
