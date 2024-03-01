@@ -4,7 +4,7 @@
 
 import cmd
 import json
-import os
+#import os
 import shlex
 from models.base_model import BaseModel
 from models.user import User
@@ -17,7 +17,7 @@ from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
-    prompt = '(hbnb)'
+    prompt = '(hbnb) '
     file_path = 'file.json'
     classes = {'BaseModel': BaseModel, 'User': User,
                'State': State, 'City': City, 'Amenity': Amenity,
@@ -25,16 +25,16 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, arg):
         '''Will exit the program'''
-        exit()
+        return True
 
     def do_EOF(self, arg):
         '''Will exit the program'''
         print()
-        exit()
+        return True
 
     def do_help(self, arg):
         '''Will show help'''
-        return super().do_help(arg)
+        super().do_help(arg)
 
     def emptyline(self):
         '''Do nothing when input is empty line'''
