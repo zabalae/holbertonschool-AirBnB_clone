@@ -180,6 +180,14 @@ class HBNBCommand(cmd.Cmd):
             eval(HBNBCommand.funcs[cmd_line] + "({})"
                  .format("'User', " + cmd_args))
 
+    def do_BaseModel(self, arg):
+        '''functions for BaseModel:'''
+        cmd_args = arg[arg.find("(") + 1:arg.find(")")]
+        cmd_line = arg.replace(cmd_args, "")
+        if cmd_line in HBNBCommand.funcs:
+            eval(HBNBCommand.funcs[cmd_line] + "({})"
+                 .format("'BaseModel', " + cmd_args))
+
     # def postcmd(self, stop, line):
     #     '''Will execute after each command'''
     #     BaseModel.save_to_file()
