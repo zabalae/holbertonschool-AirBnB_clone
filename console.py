@@ -4,7 +4,7 @@
 
 import cmd
 import json
-# import os
+import os
 import shlex
 from models.base_model import BaseModel
 from models.user import User
@@ -18,17 +18,17 @@ from models import storage
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
-    file_path = 'file.json'
-    classes = {'BaseModel': BaseModel, 'User': User,
-               'State': State, 'City': City, 'Amenity': Amenity,
-               'Place': Place, 'Review': Review}
+    # file_path = 'file.json'
+    #classes = {'BaseModel': BaseModel, 'User': User,
+    #           'State': State, 'City': City, 'Amenity': Amenity,
+    #           'Place': Place, 'Review': Review}
 
     def do_quit(self, arg):
-        '''Will exit the program'''
+        '''Quit command to exit the program'''
         return True
 
     def do_EOF(self, arg):
-        '''Will exit the program'''
+        '''Will exit the program using Ctrl-D'''
         print()
         return True
 
@@ -61,13 +61,13 @@ class HBNBCommand(cmd.Cmd):
         '''
         args = shlex.split(arg)
         if not args:
-            print("** class name missing **")
+           print("** class name missing **")
         elif args[0] not in self.classes:
-            print("** class doesn't exist **")
+           print("** class doesn't exist **")
         elif len(args) < 2:
-            print("** instance id missing **")
+           print("** instance id missing **")
         elif '{}.{}'.format(args[0], args[1]) not in storage.all():
-            print("** no instance found **")
+           print("** no instance found **")
         else:
             key = '{}.{}'.format(args[0], args[1])
             content = storage.all()[key]
@@ -123,8 +123,8 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return
         try:
-            key = args[0] + "." + args[1]
-            dict_objs[key]
+             key = args[0] + "." + args[1]
+             dict_objs[key]
         except KeyError:
             print("** no instance found **")
             return
@@ -142,18 +142,18 @@ class HBNBCommand(cmd.Cmd):
             setattr(obj, args[2], args[3])
         storage.save()
 
-    def do_count(self, arg):
-        '''Retrieves the number of instances of a class'''
-        args = shlex.split(arg)
-        if not args:
-            print("** class name missing **")
-        elif args[0] not in self.classes:
-            print("** class doesn't exist **")
-        else:
-            class_name = args[0]
-            instances = storage.get_all(self.classes[class_name])
-            count = len(instances)
-            print(count)
+    # def do_count(self, arg):
+    #    '''Retrieves the number of instances of a class'''
+    #    args = shlex.split(arg)
+    #    if not args:
+    #        print("** class name missing **")
+    #    elif args[0] not in self.classes:
+    #        print("** class doesn't exist **")
+    #    else:
+    #        class_name = args[0]
+    #        instances = storage.get_all(self.classes[class_name])
+    #        count = len(instances)
+    #        print(count)
 
     def precmd(self, line):
         '''Will execute before each command'''
@@ -165,10 +165,10 @@ class HBNBCommand(cmd.Cmd):
         line = cmd + ' ' + arg
         return line
 
-    # def postcmd(self, stop, line):
-    #     '''Will execute after each command'''
-    #     BaseModel.save_to_file()
-    #     return stop
+    def postcmd(self, stop, line):
+        '''Will execute after each command'''
+        BaseModel.save_to_file()
+        return stop
 
 
 if __name__ == '__main__':
