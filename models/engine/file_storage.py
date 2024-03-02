@@ -61,6 +61,8 @@ class FileStorage:
                 data = json.load(file)
                 for key, obj_dict in data.items():
                     class_name, obj_id = key.split('.')
+                    obj = None  # Initializing with a default value
+
                     if class_name == 'BaseModel':
                         obj = BaseModel(**obj_dict)
                     elif class_name == 'State':
