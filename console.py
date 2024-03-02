@@ -165,10 +165,10 @@ class HBNBCommand(cmd.Cmd):
         line = cmd + ' ' + arg
         return line
 
-    def postcmd(self, stop, line):
-        '''Will execute after each command'''
-        BaseModel.save_to_file()
-        return stop
+    # def postcmd(self, stop, line):
+    #    '''Will execute after each command'''
+    #    BaseModel.save_to_file()
+    #    return stop
 
 
 if __name__ == '__main__':
