@@ -95,16 +95,16 @@ class HBNBCommand(cmd.Cmd):
         '''Prints all str representation of all instances based or not
             on the class name
         '''
-        args = shlex.split(arg)
-
-        if not args:
-            print("** class name missing **")
-        elif args[0] not in self.classes:
-            print("** class doesn't exist **")
+        if (arg == ""):
+            list_obj = list(storage.all().values())
+            print(list(map(lambda x: str(x), list_obj)))
+        elif arg in HBNBCommand.classes:
+            list_obj = list(storage.all().values())
+            list_obj = filter(lambda x: type(x) is
+                              HBNBCommand.classes.get(arg), list_obj)
+            print(list(map(lambda x: str(x), list_obj)))
         else:
-            class_name = args[0]
-            instances = storage.get_all(self.classes[class_name])
-            print([str(instance) for instance in instances])
+            print("** class doesn't exist **")
 
     def do_update(self, arg):
         '''Updates an instance based on the class name and id by adding
@@ -164,6 +164,21 @@ class HBNBCommand(cmd.Cmd):
         arg = arg.replace(')', ' ')
         line = cmd + ' ' + arg
         return line
+    
+    @staticmethod
+    def all_class(*args):
+        '''all_class'''
+        HBNBCommand.do_all(args[0])
+
+    funcs = {".all()": "HBNBCommand.all_class"}
+
+    def do_User(self, arg):
+        '''functions for User:'''
+        cmd_args = arg[arg.find("(") + 1:arg.find(")")]
+        cmd_line = arg.replace(cmd_args, "")
+        if cmd_line in HBNBCommand.funcs:
+            eval(HBNBCommand.funcs[cmd_line] + "({})"
+                 .format("'User', " + cmd_args))
 
     # def postcmd(self, stop, line):
     #     '''Will execute after each command'''
