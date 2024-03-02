@@ -96,16 +96,17 @@ class HBNBCommand(cmd.Cmd):
             on the class name
         '''
         args = shlex.split(arg)
+        dict_t = storage.all()
 
         if not args:
-            print("** class name missing **")
-        elif args[0] not in self.classes:
-            print("** class doesn't exist **")
-        else:
-            class_name = args[0]
-            instances = storage.get_all(self.classes[class_name])
-            print([str(instance) for instance in instances])
-
+            print([str(value) for value in dict_t.values()])
+            return
+        if args[0] in self.classes:
+            print([str(value) for key, value in dict_t.items()
+                   if key.split(".")[0] == args[0]])
+            return
+        print("** class doesn't exist **")
+        
     def do_update(self, arg):
         '''Updates an instance based on the class name and id by adding
             or updating attribute
