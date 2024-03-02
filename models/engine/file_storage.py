@@ -4,7 +4,7 @@
 '''
 
 import json
-# from os.path import isfile
+from os.path import isfile
 from models.base_model import BaseModel
 from models.user import User
 from models.amenity import Amenity
@@ -23,8 +23,7 @@ class FileStorage:
 
     def all(self):
         '''Will return the dictionary "__objects" '''
-        return FileStorage.__objects
-        # return self.__objects
+        return self.__objects
     
     def get_all(self, cls):
         '''Returns a dictionary of all instances of the given class'''
@@ -37,22 +36,18 @@ class FileStorage:
     def new(self, obj):
         '''Will set in "__objects" the obj with key <obj class name>.id'''
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        FileStorage.__objects[key] = obj
-        # self.__objects[key] = obj
+        self.__objects[key] = obj
 
     def save(self):
         '''Serializes "__objects" to the JSON file (path: __file_path)'''
 
-        serialized_obj = {key: obj.to_dict() for key, obj in FileStorage.__objects.items()}
-        with open(FileStorage.__file_path, 'w') as file:
+        serialized_obj = {}   # Creates empty dictionary
+
+        for key, obj in self.__objects.items():
+            serialized_obj[key] = obj.to_dict()
+
+        with open(self.__file_path, 'w', encoding='utf-8') as file:
             json.dump(serialized_obj, file)
-        # serialized_obj = {}   # Creates empty dictionary
-
-        # for key, obj in self.__objects.items():
-        #    serialized_obj[key] = obj.to_dict()
-
-        # with open(self.__file_path, 'w', encoding='utf-8') as file:
-        #    json.dump(serialized_obj, file)
 
     def reload(self):
         '''Deserializes the JSON file to "__objects" '''
