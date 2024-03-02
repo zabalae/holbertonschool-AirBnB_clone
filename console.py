@@ -124,7 +124,7 @@ class HBNBCommand(cmd.Cmd):
             return
         try:
              key = args[0] + "." + args[1]
-             dict_objs[key]
+             obj = dict_objs[key]
         except KeyError:
             print("** no instance found **")
             return
@@ -134,13 +134,17 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 3:
             print("** value missing **")
             return
-        obj = dict_objs[key]
-        if hasattr(obj, args[2]):
-            data_type = type(getattr(obj, args[2]))
-            setattr(obj, args[2], data_type(args[3]))
+        
+        attribute_name = args[2]
+        if hasattr(obj, attribute_name):
+            if getattr(obj, attribute_name) is not None:
+                data_type = type(getattr(obj, attribute_name))
+                setattr(obj, attribute_name, data_type(args[3]))
+            else:
+                setattr(obj, attribute_name, args[3])
+            storage.save()
         else:
-            setattr(obj, args[2], args[3])
-        storage.save()
+            print("** attribute doesn't exist **")
 
     # def do_count(self, arg):
     #    '''Retrieves the number of instances of a class'''
