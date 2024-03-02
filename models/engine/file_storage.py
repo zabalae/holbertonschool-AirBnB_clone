@@ -25,7 +25,15 @@ class FileStorage:
         '''Will return the dictionary "__objects" '''
         return FileStorage.__objects
         # return self.__objects
-
+    
+    def get_all(self, cls):
+        '''Returns a dictionary of all instances of the given class'''
+        all_instances = {}
+        for key, obj in self.__objects.items():
+            if type(obj) == cls:
+                all_instances[key] = obj
+        return all_instances
+    
     def new(self, obj):
         '''Will set in "__objects" the obj with key <obj class name>.id'''
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
