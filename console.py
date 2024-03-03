@@ -148,6 +148,17 @@ class HBNBCommand(cmd.Cmd):
         if cmd_line in HBNBCommand.funcs:
             eval(HBNBCommand.funcs[cmd_line] + "({})"
                  .format("'User', " + cmd_args))
+            
+    def do_BaseModel(self, arg):
+        '''functions for BaseModel:
+
+        '''
+        cmd_args = arg[arg.find("(") + 1:arg.find(")")]
+        cmd_line = arg.replace(cmd_args, "")
+        if cmd_line in HBNBCommand.funcs:
+            eval(HBNBCommand.funcs[cmd_line] + "({})"
+                 .format("'BaseModel', " + cmd_args))
+
 
     # def do_count(self, arg):
     #    '''Retrieves the number of instances of a class'''
