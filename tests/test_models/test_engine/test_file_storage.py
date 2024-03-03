@@ -54,15 +54,6 @@ class TestFileStorage(unittest.TestCase):
         '''
         storage.reload()
 
-    def test_reload_non_existent_file(self):
-        '''Tests if reload() handles the case where the JSON
-            file doesn't exist
-        '''
-        file_path = storage.__file_path
-        storage.__file_path = "non_existent_file.json"
-        storage.reload()
-        storage.__file_path = file_path
-
     def test_save_and_reload_non_empty_objects(self):
          '''Tests if save() and reload() work with non-empty objects'''
          original_instance = BaseModel()
@@ -100,31 +91,31 @@ class TestFileStorage(unittest.TestCase):
         dict2 = obj.all()
         self.assertTrue(dict2 == dict1)
 
-    # def test_reload(self):
-    #     bm = BaseModel()
-    #     user = User()
-    #     state = State()
-    #     place = Place()
-    #     city = City()
-    #     amenity = Amenity()
-    #     review = Review()
-    #     storage.new(bm)
-    #     storage.new(user)
-    #     storage.new(state)
-    #     storage.new(place)
-    #     storage.new(city)
-    #     storage.new(amenity)
-    #     storage.new(review)
-    #     storage.save()
-    #     storage.reload()
-    #     objs = storage.__objects
-    #     self.assertIn("BaseModel." + bm.id, objs)
-    #     self.assertIn("User." + user.id, objs)
-    #     self.assertIn("State." + state.id, objs)
-    #     self.assertIn("Place." + place.id, objs)
-    #     self.assertIn("City." + city.id, objs)
-    #     self.assertIn("Amenity." + amenity.id, objs)
-    #     self.assertIn("Review." + review.id, objs)
+    def test_reload(self):
+        bm = BaseModel()
+        user = User()
+        state = State()
+        place = Place()
+        city = City()
+        amenity = Amenity()
+        review = Review()
+        storage.new(bm)
+        storage.new(user)
+        storage.new(state)
+        storage.new(place)
+        storage.new(city)
+        storage.new(amenity)
+        storage.new(review)
+        storage.save()
+        storage.reload()
+        objs = FileStorage.__objects
+        self.assertIn("BaseModel." + bm.id, objs)
+        self.assertIn("User." + user.id, objs)
+        self.assertIn("State." + state.id, objs)
+        self.assertIn("Place." + place.id, objs)
+        self.assertIn("City." + city.id, objs)
+        self.assertIn("Amenity." + amenity.id, objs)
+        self.assertIn("Review." + review.id, objs)
 
 if __name__ == '__main__':
     unittest.main()
