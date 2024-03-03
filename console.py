@@ -205,6 +205,12 @@ class HBNBCommand(cmd.Cmd):
                           HBNBCommand.classes.get(args[0]), list_obj)
         print(len(list(list_obj)))
 
+    @staticmethod
+    def show_class(*args):
+        ''' show an intances '''
+        tmp = HBNBCommand()
+        tmp.do_show(" ".join(args))
+
 
     # def do_count(self, arg):
     #    '''Retrieves the number of instances of a class'''
