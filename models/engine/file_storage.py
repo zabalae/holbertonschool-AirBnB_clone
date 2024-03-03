@@ -33,7 +33,7 @@ class FileStorage:
     def all(self):
         '''Will return the dictionary "__objects" '''
         return FileStorage.__objects
-    
+
     def save(self):
         '''Serializes "__objects" to the JSON file (path: __file_path)'''
 
@@ -55,4 +55,5 @@ class FileStorage:
             FileStorage.__objects = {}
             for key in objs:
                 name = key.split(".")[0]
-                FileStorage.__objects[key] = FileStorage.classes[name](**objs[key]) 
+                FileStorage.__objects[key] = FileStorage.classes
+                [name](**objs[key])
