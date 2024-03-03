@@ -58,10 +58,10 @@ class TestFileStorage(unittest.TestCase):
         '''Tests if reload() handles the case where the JSON
             file doesn't exist
         '''
-        file_path = storage._FileStorage__file_path
-        storage._FileStorage__file_path = "non_existent_file.json"
+        file_path = storage.__file_path
+        storage.__file_path = "non_existent_file.json"
         storage.reload()
-        storage._FileStorage__file_path = file_path
+        storage.__file_path = file_path
 
     def test_save_and_reload_non_empty_objects(self):
          '''Tests if save() and reload() work with non-empty objects'''
