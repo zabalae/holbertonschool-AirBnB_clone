@@ -95,7 +95,7 @@ class TestFileStorage(unittest.TestCase):
         obj.new(new_obj)
         obj.save()
         dict1 = obj.all()
-        os.remove("test.json")
+        os.remove("file.json")
         obj.reload()
         dict2 = obj.all()
         self.assertTrue(dict2 == dict1)
