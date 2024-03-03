@@ -217,6 +217,17 @@ class HBNBCommand(cmd.Cmd):
         tmp = HBNBCommand()
         tmp.do_destroy(" ".join(args))
 
+    @staticmethod
+    def update_class(*args):
+        ''' update an intance '''
+        tmp = HBNBCommand()
+        if len(args) == 3 and type(args[2]) is dict:
+            for attr, val in args[2].items():
+                temp = list(args[0:2]) + [attr, str(val)]
+                tmp.do_update(" ".join(temp))
+        else:
+            tmp.do_update(" ".join(args))
+
 
     # def do_count(self, arg):
     #    '''Retrieves the number of instances of a class'''
