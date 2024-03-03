@@ -51,9 +51,8 @@ class FileStorage:
         if not os.path.isfile(FileStorage.__file_path):
             return
         with open(FileStorage.__file_path, "r") as file_path:
-            objs = json.load(file_path)
+            ob = json.load(file_path)
             FileStorage.__objects = {}
-            for key in objs:
-                name = key.split(".")[0]
-                FileStorage.__objects[key] = FileStorage.classes
-                [name](**objs[key])
+            for k in ob:
+                name = k.split(".")[0]
+                FileStorage.__objects[k] = FileStorage.classes[name](**ob[k])
