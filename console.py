@@ -231,5 +231,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             tmp.do_update(" ".join(args))
 
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
