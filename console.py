@@ -74,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
             change into the JSON file)
         '''
         args = arg.split(" ")
-        if not args:
+        if args[0] == "":
             print("** class name missing **")
         elif args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
@@ -150,14 +150,52 @@ class HBNBCommand(cmd.Cmd):
                  .format("'User', " + cmd_args))
             
     def do_BaseModel(self, arg):
-        '''functions for BaseModel:
-
-        '''
+        '''functions for BaseModel:'''
         cmd_args = arg[arg.find("(") + 1:arg.find(")")]
         cmd_line = arg.replace(cmd_args, "")
         if cmd_line in HBNBCommand.funcs:
             eval(HBNBCommand.funcs[cmd_line] + "({})"
                  .format("'BaseModel', " + cmd_args))
+            
+    def do_State(self, arg):
+        '''functions for State:'''
+        cmd_args = arg[arg.find("(") + 1:arg.find(")")]
+        cmd_line = arg.replace(cmd_args, "")
+        if cmd_line in HBNBCommand.funcs:
+            eval(HBNBCommand.funcs[cmd_line] + "({})"
+                 .format("'State', " + cmd_args))
+
+    def do_City(self, arg):
+        '''functions for City:'''
+        cmd_args = arg[arg.find("(") + 1:arg.find(")")]
+        cmd_line = arg.replace(cmd_args, "")
+        if cmd_line in HBNBCommand.funcs:
+            eval(HBNBCommand.funcs[cmd_line] + "({})"
+                 .format("'City', " + cmd_args))
+            
+    def do_Place(self, arg):
+        '''functions for Place:'''
+        cmd_args = arg[arg.find("(") + 1:arg.find(")")]
+        cmd_line = arg.replace(cmd_args, "")
+        if cmd_line in HBNBCommand.funcs:
+            eval(HBNBCommand.funcs[cmd_line] + "({})"
+                 .format("'Place', " + cmd_args))
+            
+    def do_Amenity(self, arg):
+        '''functions for Amenity:'''
+        cmd_args = arg[arg.find("(") + 1:arg.find(")")]
+        cmd_line = arg.replace(cmd_args, "")
+        if cmd_line in HBNBCommand.funcs:
+            eval(HBNBCommand.funcs[cmd_line] + "({})"
+                 .format("'Amenity', " + cmd_args))
+            
+    def do_Review(self, arg):
+        '''functions for Review:'''
+        cmd_args = arg[arg.find("(") + 1:arg.find(")")]
+        cmd_line = arg.replace(cmd_args, "")
+        if cmd_line in HBNBCommand.funcs:
+            eval(HBNBCommand.funcs[cmd_line] + "({})"
+                 .format("'Review', " + cmd_args))
 
 
     # def do_count(self, arg):
