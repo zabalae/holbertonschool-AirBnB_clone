@@ -14,11 +14,11 @@ from models.state import State
 from models.place import Place
 
 
-class SampleClass(unittest.TestCase):
-    '''Sample Class for testing'''
-    def __init__(self, id, name):
-        self.id = id
-        self.name = name
+# class SampleClass(unittest.TestCase):
+#     '''Sample Class for testing'''
+#     def __init__(self, id, name):
+#         self.id = id
+#         self.name = name
 
 class TestFileStorage(unittest.TestCase):
     '''Class with test cases for FileStorage'''
