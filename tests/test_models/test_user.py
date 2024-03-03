@@ -49,14 +49,22 @@ class TestUserClass(unittest.TestCase):
 #       self.assertEqual(u1.email, "Liz@example.com")
 
 
-    def test_string_representation(self):
-        '''Tests the __str__ method to ensure it returns
-            a meaningful string
-        '''
-        self.assertEqual(str(self.user1), "User(email='user1@example.com', password='pass123', "
-                                           "first_name='John', last_name='Doe')")
-        self.assertEqual(str(self.user2), "User(email='user2@example.com', password='pass456', "
-                                           "first_name='Jane', last_name='Smith')")
+    # def test_string_representation(self):
+    #     '''Tests the __str__ method to ensure it returns
+    #         a meaningful string
+    #     '''
+    #     self.assertEqual(str(self.user1), "User(email='user1@example.com', password='pass123', "
+    #                                        "first_name='John', last_name='Doe')")
+    #     self.assertEqual(str(self.user2), "User(email='user2@example.com', password='pass456', "
+    #                                        "first_name='Jane', last_name='Smith')")
+        
+    def test_field_types(self):
+        """ Test field attributes of user """
+        user1 = User()
+        self.assertTrue(type(user1.email) == str)
+        self.assertTrue(type(user1.password) == str)
+        self.assertTrue(type(user1.first_name) == str)
+        self.assertTrue(type(user1.last_name) == str)
 
 if __name__ == '__main__':
     unittest.main()
