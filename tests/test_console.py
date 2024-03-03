@@ -241,6 +241,158 @@ class TestHBNBCommandShowMethods(unittest.TestCase):
             output = f.getvalue().strip()
             self.assertIn("** instance id missing **", output)
 
+class TestHBNBCommandDestroyMethods(unittest.TestCase):
+
+    def setUp(self):
+        self.console = HBNBCommand()
+        storage._FileStorage__objects = {}
+
+    def tearDown(self):
+        del self.console
+
+    def test_base_model_destroy_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("create BaseModel")
+            instance_id = f.getvalue().strip()
+
+        with patch('sys.stdout', new=StringIO()) as f_destroy:
+            self.console.onecmd("BaseModel.destroy('{}')".format(instance_id))
+            output = f_destroy.getvalue().strip()
+            self.assertEqual(output, "")
+
+            with patch('sys.stdout', new=StringIO()) as f_show:
+                self.console.onecmd("BaseModel.show('{}')".format(instance_id))
+                show_output = f_show.getvalue().strip()
+                self.assertEqual(show_output, "** no instance found **")
+
+    def test_user_destroy_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("create User")
+            instance_id = f.getvalue().strip()
+
+        with patch('sys.stdout', new=StringIO()) as f_destroy:
+            self.console.onecmd("User.destroy('{}')".format(instance_id))
+            output = f_destroy.getvalue().strip()
+            self.assertEqual(output, "")
+
+            with patch('sys.stdout', new=StringIO()) as f_show:
+                self.console.onecmd("User.show('{}')".format(instance_id))
+                show_output = f_show.getvalue().strip()
+                self.assertEqual(show_output, "** no instance found **")
+
+    def test_city_destroy_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("create City")
+            instance_id = f.getvalue().strip()
+
+        with patch('sys.stdout', new=StringIO()) as f_destroy:
+            self.console.onecmd("City.destroy('{}')".format(instance_id))
+            output = f_destroy.getvalue().strip()
+            self.assertEqual(output, "")
+
+            with patch('sys.stdout', new=StringIO()) as f_show:
+                self.console.onecmd("City.show('{}')".format(instance_id))
+                show_output = f_show.getvalue().strip()
+                self.assertEqual(show_output, "** no instance found **")
+
+    def test_state_destroy_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("create State")
+            instance_id = f.getvalue().strip()
+
+        with patch('sys.stdout', new=StringIO()) as f_destroy:
+            self.console.onecmd("State.destroy('{}')".format(instance_id))
+            output = f_destroy.getvalue().strip()
+            self.assertEqual(output, "")
+
+            with patch('sys.stdout', new=StringIO()) as f_show:
+                self.console.onecmd("State.show('{}')".format(instance_id))
+                show_output = f_show.getvalue().strip()
+                self.assertEqual(show_output, "** no instance found **")
+
+    def test_place_destroy_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("create Place")
+            instance_id = f.getvalue().strip()
+
+        with patch('sys.stdout', new=StringIO()) as f_destroy:
+            self.console.onecmd("Place.destroy('{}')".format(instance_id))
+            output = f_destroy.getvalue().strip()
+            self.assertEqual(output, "")
+
+            with patch('sys.stdout', new=StringIO()) as f_show:
+                self.console.onecmd("Place.show('{}')".format(instance_id))
+                show_output = f_show.getvalue().strip()
+                self.assertEqual(show_output, "** no instance found **")
+
+    def test_amenity_destroy_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("create Amenity")
+            instance_id = f.getvalue().strip()
+
+        with patch('sys.stdout', new=StringIO()) as f_destroy:
+            self.console.onecmd("Amenity.destroy('{}')".format(instance_id))
+            output = f_destroy.getvalue().strip()
+            self.assertEqual(output, "")
+
+            with patch('sys.stdout', new=StringIO()) as f_show:
+                self.console.onecmd("Amenity.show('{}')".format(instance_id))
+                show_output = f_show.getvalue().strip()
+                self.assertEqual(show_output, "** no instance found **")
+
+    def test_review_destroy_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("create Review")
+            instance_id = f.getvalue().strip()
+
+        with patch('sys.stdout', new=StringIO()) as f_destroy:
+            self.console.onecmd("Review.destroy('{}')".format(instance_id))
+            output = f_destroy.getvalue().strip()
+            self.assertEqual(output, "")
+
+            with patch('sys.stdout', new=StringIO()) as f_show:
+                self.console.onecmd("Review.show('{}')".format(instance_id))
+                show_output = f_show.getvalue().strip()
+                self.assertEqual(show_output, "** no instance found **")
+
+class TestHBNBCommandUpdateMethods(unittest.TestCase):
+
+    def setUp(self):
+        self.console = HBNBCommand()
+        storage._FileStorage__objects = {}
+
+    def tearDown(self):
+        del self.console
+
+    def test_base_model_update_method_string(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("create BaseModel")
+            instance_id = f.getvalue().strip()
+
+        with patch('sys.stdout', new=StringIO()) as f_update:
+            self.console.onecmd("BaseModel.update('{}', 'name', 'NewName')")
+            output = f_update.getvalue().strip()
+            self.assertEqual(output, "")
+            
+            with patch('sys.stdout', new=StringIO()) as f_show:
+                self.console.onecmd("BaseModel.show('{}')".format(instance_id))
+                show_output = f_show.getvalue().strip()
+                self.assertIn("'name': 'NewName'", show_output)
+
+    def test_user_update_method_dict(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("create User")
+            instance_id = f.getvalue().strip()
+
+        with patch('sys.stdout', new=StringIO()) as f_update:
+            self.console.onecmd("User.update('{}', {{'name': 'NewName'}})".format(instance_id))
+            output = f_update.getvalue().strip()
+            self.assertEqual(output, "")
+
+            with patch('sys.stdout', new=StringIO()) as f_show:
+                self.console.onecmd("User.show('{}')".format(instance_id))
+                show_output = f_show.getvalue().strip()
+                self.assertIn("'name': 'NewName'", show_output)
 
 if __name__ == '__main__':
     unittest.main()
