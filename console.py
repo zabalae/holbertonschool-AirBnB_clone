@@ -58,11 +58,11 @@ class HBNBCommand(cmd.Cmd):
         '''
         args = arg.split(" ")
         if not args:
-           print("** class name missing **")
+            print("** class name missing **")
         elif args[0] not in HBNBCommand.classes:
-           print("** class doesn't exist **")
+            print("** class doesn't exist **")
         elif len(args) == 1:
-           print("** instance id missing **")
+            print("** instance id missing **")
         else:
             content = storage.all()
             key = '{}.{}'.format(args[0], args[1])
@@ -102,11 +102,11 @@ class HBNBCommand(cmd.Cmd):
         elif arg in HBNBCommand.classes:
             args = list(storage.all().values())
             args = filter(lambda x: type(x) is
-                              HBNBCommand.classes.get(arg), args)
+                          HBNBCommand.classes.get(arg), args)
             print(list(map(lambda x: str(x), args)))
         else:
             print("** class doesn't exist **")
-        
+
     def do_update(self, arg):
         '''Updates an instance based on the class name and id
         by adding or updating attribute'''
@@ -151,7 +151,7 @@ class HBNBCommand(cmd.Cmd):
         if cmd_line in HBNBCommand.funcs:
             eval(HBNBCommand.funcs[cmd_line] + "({})"
                  .format("'User', " + cmd_args))
-            
+
     def do_BaseModel(self, arg):
         '''functions for BaseModel:'''
         cmd_args = arg[arg.find("(") + 1:arg.find(")")]
@@ -159,7 +159,7 @@ class HBNBCommand(cmd.Cmd):
         if cmd_line in HBNBCommand.funcs:
             eval(HBNBCommand.funcs[cmd_line] + "({})"
                  .format("'BaseModel', " + cmd_args))
-            
+
     def do_State(self, arg):
         '''functions for State:'''
         cmd_args = arg[arg.find("(") + 1:arg.find(")")]
@@ -175,7 +175,7 @@ class HBNBCommand(cmd.Cmd):
         if cmd_line in HBNBCommand.funcs:
             eval(HBNBCommand.funcs[cmd_line] + "({})"
                  .format("'City', " + cmd_args))
-            
+
     def do_Place(self, arg):
         '''functions for Place:'''
         cmd_args = arg[arg.find("(") + 1:arg.find(")")]
@@ -183,7 +183,7 @@ class HBNBCommand(cmd.Cmd):
         if cmd_line in HBNBCommand.funcs:
             eval(HBNBCommand.funcs[cmd_line] + "({})"
                  .format("'Place', " + cmd_args))
-            
+
     def do_Amenity(self, arg):
         '''functions for Amenity:'''
         cmd_args = arg[arg.find("(") + 1:arg.find(")")]
@@ -191,7 +191,7 @@ class HBNBCommand(cmd.Cmd):
         if cmd_line in HBNBCommand.funcs:
             eval(HBNBCommand.funcs[cmd_line] + "({})"
                  .format("'Amenity', " + cmd_args))
-            
+
     def do_Review(self, arg):
         '''functions for Review:'''
         cmd_args = arg[arg.find("(") + 1:arg.find(")")]
@@ -199,7 +199,7 @@ class HBNBCommand(cmd.Cmd):
         if cmd_line in HBNBCommand.funcs:
             eval(HBNBCommand.funcs[cmd_line] + "({})"
                  .format("'Review', " + cmd_args))
-            
+
     @staticmethod
     def count_class(*args):
         '''count all instaces'''
@@ -230,36 +230,6 @@ class HBNBCommand(cmd.Cmd):
                 tmp.do_update(" ".join(temp))
         else:
             tmp.do_update(" ".join(args))
-
-
-    # def do_count(self, arg):
-    #    '''Retrieves the number of instances of a class'''
-    #    args = shlex.split(arg)
-    #    if not args:
-    #        print("** class name missing **")
-    #    elif args[0] not in self.classes:
-    #        print("** class doesn't exist **")
-    #    else:
-    #        class_name = args[0]
-    #        instances = storage.get_all(self.classes[class_name])
-    #        count = len(instances)
-    #        print(count)
-
-    # def precmd(self, line):
-    #     '''Will execute before each command'''
-    #     if '.' not in line:
-    #         return line
-    #     cmd, arg = line.split('.', 1)
-    #     arg = arg.replace('(', ' ')
-    #     arg = arg.replace(')', ' ')
-    #     line = cmd + ' ' + arg
-    #     return line
-
-    # def postcmd(self, stop, line):
-    #    '''Will execute after each command'''
-    #    BaseModel.save_to_file()
-    #    return stop
-
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
