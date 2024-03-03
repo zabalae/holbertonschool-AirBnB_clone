@@ -5,6 +5,13 @@ import unittest
 from unittest.mock import patch
 from io import StringIO
 from console import HBNBCommand
+from models.base_model import BaseModel
+from models.review import Review
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.user import User
+from models.state import State
 
 
 class TestConsoleCommands(unittest.TestCase):
