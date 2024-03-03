@@ -108,9 +108,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         
     def do_update(self, arg):
-        '''Updates an instance based on the class name and id by adding
-            or updating attribute
-        '''
+        '''Updates an instance based on the class name and id
+        by adding or updating attribute'''
         args = shlex.split(arg)
         if len(args) == 0:
             print("** class name missing **")
