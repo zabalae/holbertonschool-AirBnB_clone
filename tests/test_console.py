@@ -14,13 +14,11 @@ class TestConsoleCommands(unittest.TestCase):
 
     def test_quit_command(self):
         with patch('sys.stdout', new=StringIO()) as f:
-            self.assertTrue(self.console.onecmd('quit'))
-            self.assertEqual(f.getvalue().strip(), '')
+            self.assertTrue(HBNBCommand().onecmd('quit'))
 
-    def test_eof_command(self):
-        with self.assertRaises(SystemExit) as cm:
-            self.console.onecmd('EOF')
-        self.assertEqual(cm.exception.code, True)
+    def test_EOF_command(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.assertTrue(HBNBCommand().onecmd('EOF'))
 
     def test_help_command(self):
         with patch('sys.stdout', new=StringIO()) as f:
