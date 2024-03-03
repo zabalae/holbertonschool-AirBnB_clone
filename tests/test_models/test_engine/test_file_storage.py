@@ -14,11 +14,11 @@ from models.state import State
 from models.place import Place
 
 
-# class SampleClass(unittest.TestCase):
-#     '''Sample Class for testing'''
-#     def __init__(self, id, name):
-#         self.id = id
-#         self.name = name
+class SampleClass(unittest.TestCase):
+    '''Sample Class for testing'''
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
 
 class TestFileStorage(unittest.TestCase):
     '''Class with test cases for FileStorage'''
@@ -108,7 +108,7 @@ class TestFileStorage(unittest.TestCase):
         storage.new(review)
         storage.save()
         storage.reload()
-        objs = FileStorage.__objects
+        objs = FileStorage._FileStorage__objects
         self.assertIn("BaseModel." + bm.id, objs)
         self.assertIn("User." + user.id, objs)
         self.assertIn("State." + state.id, objs)
