@@ -84,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
             content = storage.all()
             key = '{}.{}'.format(args[0], args[1])
             if key in content.keys():
-                storage.delete(args[0], args[1])
+                del content[key]
             else:
                 print("** no instance found **")
 
