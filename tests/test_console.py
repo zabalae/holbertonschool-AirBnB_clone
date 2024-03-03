@@ -108,6 +108,111 @@ class TestHBNBCommandAllMethods(unittest.TestCase):
             output = f.getvalue().strip()
             self.assertIn("Place", output)
 
+class TestHBNBCommandCountMethods(unittest.TestCase):
+    def setUp(self):
+        self.console = HBNBCommand()
+
+    def test_base_model_count_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("BaseModel.count()")
+            output = f.getvalue().strip()
+            self.assertIn("1", output)  # Assuming one instance was created
+
+    def test_review_count_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("Review.count()")
+            output = f.getvalue().strip()
+            self.assertIn("0", output)  # Assuming zero instances initially
+
+    def test_user_count_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("User.count()")
+            output = f.getvalue().strip()
+            self.assertIn("0", output)  # Assuming zero instances initially
+
+    def test_state_count_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("State.count()")
+            output = f.getvalue().strip()
+            self.assertIn("0", output)  # Assuming zero instances initially
+
+    def test_city_count_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("City.count()")
+            output = f.getvalue().strip()
+            self.assertIn("0", output)  # Assuming zero instances initially
+
+    def test_amenity_count_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("Amenity.count()")
+            output = f.getvalue().strip()
+            self.assertIn("0", output)  # Assuming zero instances initially
+
+    def test_place_count_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("Place.count()")
+            output = f.getvalue().strip()
+            self.assertIn("0", output)  # Assuming zero instances initially
+
+class TestHBNBCommandShowMethods(unittest.TestCase):
+    def setUp(self):
+        self.console = HBNBCommand()
+
+    def test_base_model_show_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("BaseModel.show('id')")
+            output = f.getvalue().strip()
+            self.assertIn("BaseModel", output)
+            self.assertIn("id", output)
+
+    def test_review_show_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("Review.show('id')")
+            output = f.getvalue().strip()
+            self.assertIn("Review", output)
+            self.assertIn("id", output)
+
+    def test_user_show_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("User.show('id')")
+            output = f.getvalue().strip()
+            self.assertIn("User", output)
+            self.assertIn("id", output)
+
+    def test_state_show_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("State.show('id')")
+            output = f.getvalue().strip()
+            self.assertIn("State", output)
+            self.assertIn("id", output)
+
+    def test_city_show_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("City.show('id')")
+            output = f.getvalue().strip()
+            self.assertIn("City", output)
+            self.assertIn("id", output)
+
+    def test_amenity_show_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("Amenity.show('id')")
+            output = f.getvalue().strip()
+            self.assertIn("Amenity", output)
+            self.assertIn("id", output)
+
+    def test_place_show_method(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("Place.show('id')")
+            output = f.getvalue().strip()
+            self.assertIn("Place", output)
+            self.assertIn("id", output)
+
+    def test_show_command_missing_id(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("User.show()")
+            output = f.getvalue().strip()
+            self.assertIn("** instance id missing **", output)
+
 
 if __name__ == '__main__':
     unittest.main()
