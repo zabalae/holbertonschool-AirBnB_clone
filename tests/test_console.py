@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''Creates test cases for console'''
+'''Defines test cases for console'''
 
 import unittest
 from unittest.mock import patch
@@ -13,9 +13,9 @@ class TestConsoleCommands(unittest.TestCase):
         self.console = HBNBCommand()
 
     def test_quit_command(self):
-        with self.assertRaises(SystemExit) as cm:
-            self.console.onecmd('quit')
-        self.assertEqual(cm.exception.code, True)
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.assertTrue(self.console.onecmd('quit'))
+            self.assertEqual(f.getvalue().strip(), '')
 
     def test_eof_command(self):
         with self.assertRaises(SystemExit) as cm:
@@ -23,14 +23,14 @@ class TestConsoleCommands(unittest.TestCase):
         self.assertEqual(cm.exception.code, True)
 
     def test_help_command(self):
-        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+        with patch('sys.stdout', new=StringIO()) as f:
             self.console.onecmd('help')
-            output = mock_stdout.getvalue().strip()
+            output = f.getvalue().strip()
             self.assertTrue("List available commands" in output)
 
     def test_empty_line_command(self):
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
-            self.console.onecmd('')
+            self.assertFalse(self.console.onecmd(''))
             output = mock_stdout.getvalue().strip()
             self.assertEqual(output, '')
 
