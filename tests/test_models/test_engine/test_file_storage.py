@@ -54,15 +54,6 @@ class TestFileStorage(unittest.TestCase):
         '''
         storage.reload()
 
-    def test_reload_non_existent_file(self):
-        '''Tests if reload() handles the case where the JSON
-            file doesn't exist
-        '''
-        file_path = storage._FileStorage__file_path
-        storage._FileStorage__file_path = "non_existent_file.json"
-        storage.reload()
-        storage._FileStorage__file_path = file_path
-
     def test_save_and_reload_non_empty_objects(self):
          '''Tests if save() and reload() work with non-empty objects'''
          original_instance = BaseModel()
@@ -88,6 +79,18 @@ class TestFileStorage(unittest.TestCase):
         with self.assertRaises(TypeError):
             storage.reload(None)
 
+    def test_empty_reload(self):
+        """ Empty reload function """
+        obj = FileStorage()
+        new_obj = BaseModel()
+        obj.new(new_obj)
+        obj.save()
+        dict1 = obj.all()
+        os.remove("file.json")
+        obj.reload()
+        dict2 = obj.all()
+        self.assertTrue(dict2 == dict1)
+
     def test_reload(self):
         bm = BaseModel()
         user = User()
@@ -105,7 +108,7 @@ class TestFileStorage(unittest.TestCase):
         storage.new(review)
         storage.save()
         storage.reload()
-        objs = storage._FileStorage__objects
+        objs = FileStorage._FileStorage__objects
         self.assertIn("BaseModel." + bm.id, objs)
         self.assertIn("User." + user.id, objs)
         self.assertIn("State." + state.id, objs)

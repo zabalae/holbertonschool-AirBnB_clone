@@ -20,6 +20,9 @@ class FileStorage:
     '''
     __file_path = "file.json"   # path to the JSON file
     __objects = {}   # dictionary
+    classes = {'BaseModel': BaseModel, 'User': User,
+               'State': State, 'City': City, 'Amenity': Amenity,
+               'Place': Place, 'Review': Review}
 
     def new(self, obj):
         '''Will set in "__objects" the obj with key <obj class name>.id'''
@@ -30,16 +33,7 @@ class FileStorage:
     def all(self):
         '''Will return the dictionary "__objects" '''
         return FileStorage.__objects
-        # return self.__objects
-    
-    # def get_all(self, cls):
-    #    '''Returns a dictionary of all instances of the given class'''
-    #    all_instances = {}
-    #    for key, obj in self.__objects.items():
-    #        if type(obj) == cls:
-    #            all_instances[key] = obj
-    #    return all_instances
-    
+
     def save(self):
         '''Serializes "__objects" to the JSON file (path: __file_path)'''
 
@@ -51,36 +45,14 @@ class FileStorage:
 
         with open(FileStorage.__file_path, 'w', encoding='utf-8') as file:
             json.dump(serialized_obj, file)
-        # serialized_obj = {}   # Creates empty dictionary
-
-        # for key, obj in self.__objects.items():
-        #    serialized_obj[key] = obj.to_dict()
-
-        # with open(self.__file_path, 'w', encoding='utf-8') as file:
-        #    json.dump(serialized_obj, file)
 
     def reload(self):
         '''Deserializes the JSON file to "__objects" '''
-        if os.path.isfile(FileStorage.__file_path):
-            with open(FileStorage.__file_path, 'r', encoding='utf-8') as file:
-                try:
-                    serialized_obj = json.load(file)
-                    for key, value in serialized_obj.items():
-                        class_name, obj_id = key.split('.')
-
-                        cls = eval(class_name)
-                        instance = cls(**value)
-                        FileStorage.__objects[key] = instance
-                except Exception:
-                    pass
-
-        # try:
-        #    with open(self.__file_path, 'r', encoding='utf-8') as file:
-        #        loaded_obj = json.load(file)
-        #        for key, obj_dict in loaded_obj.items():
-        #            class_name, obj_id = key.split('.')
-        #            class_ = globals()[class_name]
-        #            obj = class_(**obj_dict)
-        #            self.__objects[key] = obj
-        # except FileNotFoundError:
-        #    pass
+        if not os.path.isfile(FileStorage.__file_path):
+            return
+        with open(FileStorage.__file_path, "r") as file_path:
+            ob = json.load(file_path)
+            FileStorage.__objects = {}
+            for k in ob:
+                name = k.split(".")[0]
+                FileStorage.__objects[k] = FileStorage.classes[name](**ob[k])
