@@ -2,7 +2,7 @@
 '''Creates test cases for FileStorage'''
 
 import unittest
-#from models.engine.file_storage import FileStorage
+from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 import os
 from models import storage
