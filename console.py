@@ -211,6 +211,12 @@ class HBNBCommand(cmd.Cmd):
         tmp = HBNBCommand()
         tmp.do_show(" ".join(args))
 
+    @staticmethod
+    def destroy_class(*args):
+        ''' destroy an intance '''
+        tmp = HBNBCommand()
+        tmp.do_destroy(" ".join(args))
+
 
     # def do_count(self, arg):
     #    '''Retrieves the number of instances of a class'''
