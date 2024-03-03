@@ -196,6 +196,14 @@ class HBNBCommand(cmd.Cmd):
         if cmd_line in HBNBCommand.funcs:
             eval(HBNBCommand.funcs[cmd_line] + "({})"
                  .format("'Review', " + cmd_args))
+            
+    @staticmethod
+    def count_class(*args):
+        '''count all instaces'''
+        list_obj = list(storage.all().values())
+        list_obj = filter(lambda x: type(x) is
+                          HBNBCommand.classes.get(args[0]), list_obj)
+        print(len(list(list_obj)))
 
 
     # def do_count(self, arg):
