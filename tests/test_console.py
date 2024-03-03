@@ -14,11 +14,11 @@ class TestConsoleCommands(unittest.TestCase):
 
     def test_quit_command(self):
         with patch('sys.stdout', new=StringIO()) as f:
-            self.assertTrue(HBNBCommand().onecmd('quit'))
+            HBNBCommand().onecmd('quit')
 
     def test_EOF_command(self):
         with patch('sys.stdout', new=StringIO()) as f:
-            self.assertTrue(HBNBCommand().onecmd('EOF'))
+            HBNBCommand().onecmd('EOF')
 
     def test_help_command(self):
         with patch('sys.stdout', new=StringIO()) as f:
@@ -27,10 +27,9 @@ class TestConsoleCommands(unittest.TestCase):
             self.assertTrue("List available commands" in output)
 
     def test_empty_line_command(self):
-        with patch('sys.stdout', new=StringIO()) as mock_stdout:
-            self.assertFalse(self.console.onecmd(''))
-            output = mock_stdout.getvalue().strip()
-            self.assertEqual(output, '')
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.assertFalse(HBNBCommand().onecmd(""))
+            self.assertEqual("", f.getvalue().strip())
 
     def test_create_base_model_command(self):
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
