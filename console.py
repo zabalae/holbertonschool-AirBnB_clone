@@ -16,6 +16,7 @@ from models import storage
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
+    file_path = 'file.json'
     classes = {'BaseModel': BaseModel, 'User': User,
                'State': State, 'City': City, 'Amenity': Amenity,
                'Place': Place, 'Review': Review}
@@ -112,7 +113,7 @@ class HBNBCommand(cmd.Cmd):
         args = shlex.split(arg)
         if len(args) == 0:
             print("** class name missing **")
-        elif not args[0] in HBNBCommand.name_classes:
+        elif not args[0] in HBNBCommand.classes:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
