@@ -1,0 +1,1 @@
+This directory will be about adding HTML and CSS to our AirBnB Clone.
